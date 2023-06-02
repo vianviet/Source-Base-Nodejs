@@ -9,7 +9,7 @@ RUN yarn install
 EXPOSE 3000
 
 # Development
-CMD ["yarn", "start"]
+CMD ["yarn", "start:dev"]
 
 # Production
 # RUN npm install -g pm2
