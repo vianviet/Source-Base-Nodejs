@@ -1,25 +1,28 @@
 version: '3.7'
 
 services:
-  client:
-    build:
-      context: .
-      dockerfile: ./Container/Frontend/Dockerfile
-    image: itree_front/react:v1
-    volumes:
-      - ./volumes/Frontend:/Frontend
-    ports:
-      - '3000:3000'
-    restart: unless-stopped
-    networks:
-      - webappnetwork
+  # client:
+  #   build:
+  #     context: .
+  #     dockerfile: ./Container/Frontend/Dockerfile
+  #   image: itree_front/react:v1
+  #   volumes:
+  #     - ./volumes/Frontend:/Frontend
+  #   ports:
+  #     - '3000:3000'
+  #   restart: unless-stopped
+  #   networks:
+  #     - webappnetwork
   api:
     build:
       context: .
       dockerfile: ./Container/Backend/Dockerfile
-    image: itree_back/node:v1
+    image: backend
     volumes:
-      - ./volumes/uploads:/api/uploads
+      # - ./volumes/uploads:/api/uploads
+      - type: bind
+        source: ./Backend
+        target: /api
     ports:
       - '5000:3000'
     restart: unless-stopped
