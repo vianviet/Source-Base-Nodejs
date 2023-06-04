@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "main_categories",
+  "info": {
+    "singularName": "main-category",
+    "pluralName": "main-categories",
+    "displayName": "MainCategory",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "special_name": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
+    }
+  }
+}

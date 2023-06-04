@@ -1,49 +1,16 @@
-version: '3.7'
+version: "3"
 
 services:
-  # client:
-  #   build:
-  #     context: .
-  #     dockerfile: ./Container/Frontend/Dockerfile
-  #   image: itree_front/react:v1
-  #   volumes:
-  #     - ./volumes/Frontend:/Frontend
-  #   ports:
-  #     - '3000:3000'
-  #   restart: unless-stopped
-  #   networks:
-  #     - webappnetwork
-  api:
-    build:
-      context: .
-      dockerfile: ./Container/Backend/Dockerfile
-    image: backend
-    volumes:
-      # - ./volumes/uploads:/api/uploads
-      - type: bind
-        source: ./Backend
-        target: /api
-    ports:
-      - '5000:3000'
+  strapi:
+    image: naskio/strapi
+    container_name: strapi
     restart: unless-stopped
-    depends_on:
-      - mongodb
-    networks:
-      - webappnetwork
-
-  mongodb:
-    image: mongo
+    env_file: .env
+    environment:
+      NODE_ENV : ${NODE_ENV}
     volumes:
-      - ./volumes/data/db:/data/db
-    restart: unless-stopped
+      - ./app:/srv/app
     ports:
-      - 27017:27017
-    networks:
-      - webappnetwork
+      - "1337:1337"
 
-networks:
-    webappnetwork:
-        driver: bridge
-        
-volumes:
-  data:
+
