@@ -2,10 +2,10 @@ FROM node:16-alpine
 
 WORKDIR /client
 
-COPY ./client ./
+COPY ./client/package.json ./
 
 RUN yarn install
 
-EXPOSE 3000
+COPY ./client ./
 
-CMD ["yarn", "start"]
+CMD ["yarn", "develop"]
