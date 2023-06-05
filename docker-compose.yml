@@ -1,16 +1,61 @@
 version: "3"
 
 services:
-  strapi:
+  client:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+    image: client/react:v1
+    volumes:
+      - ./client:/client
+    ports:
+      - '3000:3000'
+    restart: unless-stopped
+    networks:
+      - webappnetwork
+
+  api:
     image: naskio/strapi
-    container_name: strapi
+    container_name: api
     restart: unless-stopped
     env_file: .env
     environment:
-      NODE_ENV : ${NODE_ENV}
+      NODE_ENV : ${API_NODE_ENV}
+      HOST : ${API_HOST}
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - ./app:/srv/app
     ports:
       - "1337:1337"
+    networks:
+      - webappnetwork
+    depends_on:
+      - db
 
+  db:
+    image: postgres:13
+    container_name: strapi_v4_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB : ${DATABASE_HOST}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - webappnetwork
+
+networks:
+    webappnetwork:
+        driver: bridge
+
+volumes:
+  data:
 
