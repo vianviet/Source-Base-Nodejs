@@ -29,10 +29,10 @@
       "type": "media",
       "multiple": false
     },
-    "products": {
+    "main_products": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::product.product",
+      "target": "api::main-product.main-product",
       "mappedBy": "category"
     }
   }

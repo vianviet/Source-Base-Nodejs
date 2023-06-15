@@ -23,14 +23,6 @@
     "description": {
       "type": "text"
     },
-    "title_image": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
-    },
     "images": {
       "type": "media",
       "multiple": true,
@@ -47,10 +39,10 @@
         "videos"
       ]
     },
-    "category": {
+    "main_product": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::category.category",
+      "target": "api::main-product.main-product",
       "inversedBy": "products"
     }
   }
