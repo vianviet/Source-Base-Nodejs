@@ -13,21 +13,21 @@ services:
     links:
       - api:api
     depends_on:
-      - client
+      # - client
       - api
 
-  client:
-    build:
-      context: .
-      dockerfile: ./client/Dockerfile
-    image: client/react:v1
-    # volumes:
-    #   - ./client:/client
-    ports:
-      - '3000:3000'
-    restart: unless-stopped
-    networks:
-      - webappnetwork
+  # client:
+  #   build:
+  #     context: .
+  #     dockerfile: ./client/Dockerfile
+  #   image: client/react:v1
+  #   volumes:
+  #     - ./client:/client
+  #   ports:
+  #     - '3000:3000'
+  #   restart: unless-stopped
+  #   networks:
+  #     - webappnetwork
 
   api:
     image: naskio/strapi
